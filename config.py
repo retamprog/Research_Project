@@ -22,11 +22,14 @@ TRAIN_PROTOCOL=os.path.join(PROTOCOL_DIR,"ASVspoof2019.LA.cm.train.trn.txt")
 DEV_PROTOCOL=os.path.join(PROTOCOL_DIR,"ASVspoof2019.LA.cm.dev.trl.txt")
 EVAL_PROTOCOL=os.path.join(PROTOCOL_DIR,"ASVspoof2019.LA.cm.eval.trl.txt")
 
-# Data files
+# audio files directory
 FLAC_TRAIN_DIR=os.path.join(DATA_DIR,'ASVspoof2019_LA_train','flac')
 FLAC_EVAL_DIR=os.path.join(DATA_DIR,'ASVspoof2019_LA_eval','flac')
 FLAC_DEV_DIR=os.path.join(DATA_DIR,'ASVspoof2019_LA_dev','flac')
-
+# output files directory
+OUTPUT_DIR      = os.path.join(BASE_DIR, "outputs")
+MODEL_SAVE_DIR  = os.path.join(OUTPUT_DIR, "saved_models")
+RESULTS_DIR     = os.path.join(OUTPUT_DIR, "results")
 # Data preprocessing parameters
 
 SAMPLE_RATE=16000 # All audio will be resampled at 16khz rate

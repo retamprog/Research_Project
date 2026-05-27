@@ -71,12 +71,15 @@ def extract_log_mel_channel(audio:np.ndarray,sr:int=SAMPLE_RATE):
     return log_mel[np.newaxis, ... ]# this returns (1 , n_mels ,time frames)
 
 def extract_features(feature_type:str,audio:np.ndarray,sr:int=SAMPLE_RATE):
-    if feature_type.lower() == 'mfcc':
-        mfcc_tensor = extract_mfcc_delta(audio=audio,sr=sr)
-        return mfcc_tensor
-    elif feature_type.lower() == 'log_mel':
-        log_mel_tensor = extract_log_mel_channel(audio=audio,sr=sr)
-        return log_mel_tensor
+    feature_type = feature_type.lower()
+    if feature_type == "mfcc":
+        feat = extract_mfcc(audio, sr=sr)   # (n_mfcc, T)
+        return feat[np.newaxis, ...]         # (1, n_mfcc, T)
+    elif feature_type in ("logmel", "log_mel", "mel"):
+        return extract_log_mel_channel(audio, sr=sr)  # (1, n_mels, T)
+    else:
+        raise ValueError(f"Unknown feature type: {feature_type}. Choose 'mfcc' or 'logmel'.")
+
 
 
 

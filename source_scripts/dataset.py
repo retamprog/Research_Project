@@ -15,7 +15,7 @@ from utility_scripts.data_augment import augment_audio
 from config import (
     TRAIN_PROTOCOL,DEV_PROTOCOL,EVAL_PROTOCOL,
     FLAC_DEV_DIR,FLAC_EVAL_DIR,FLAC_TRAIN_DIR,
-    NUM_WORKERS,DEVICE,SAMPLE_RATE,BATCH_SIZE
+    NUM_WORKERS,SAMPLE_RATE,BATCH_SIZE
 )
 
 def protocol_loader(path):
