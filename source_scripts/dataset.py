@@ -82,7 +82,7 @@ class ASVspoofDataset(Dataset):
 
     def __getitem__(self, index):
         row = self.df.iloc[index]
-        audio_id = row['audio_file_id']
+        audio_id = row['audio_id']
         filepath =  os.path.join(self.audio_dir,audio_id,'.flac')
         if self.cache is not None and filepath in self.cache:
             feature_np = self.cache[filepath] # this will return the tensor for the particular audio file if stored in cache
