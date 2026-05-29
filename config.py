@@ -12,9 +12,16 @@ import librosa
 
 # file path configurations
 
-# Base files for reaching the other files
-BASE_DIR=os.path.dirname(os.path.abspath(__file__))
-DATA_DIR=os.path.join(BASE_DIR,"dataset","LA")
+# Base files for reaching the other files change due to google file structure difference
+
+# BASE_DIR=os.path.dirname(os.path.abspath(__file__))
+# DATA_DIR=os.path.join(BASE_DIR,"dataset","LA")
+if os.path.exists("/content"):
+    BASE_DIR = "/content"
+    DATA_DIR = "/content/datasets/LA"
+else:
+    BASE_DIR=os.path.dirname(os.path.abspath(__file__))
+    DATA_DIR=os.path.join(BASE_DIR,"dataset","LA")
 
 # protocol files
 PROTOCOL_DIR=os.path.join(DATA_DIR,'ASVspoof2019_LA_cm_protocols')
