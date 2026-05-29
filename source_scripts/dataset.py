@@ -101,7 +101,7 @@ class ASVspoofDataset(Dataset):
             
     
     def __len__(self):
-       return (self.df.shape,self.df.size)
+       return len(self.df)
 
 def get_dataloaders(feature_type: str = "mfcc",
                     batch_size: int = BATCH_SIZE,
@@ -130,8 +130,8 @@ def get_dataloaders(feature_type: str = "mfcc",
     # def __getitem__(self, index):
         
 
-# if __name__ == "__main__":
-#     print(torch.__version__)
+if __name__ == "__main__":
+    train_ds,dev_ds,eval_ds = get_dataloaders(feature_type='mfcc')
 
 
 
