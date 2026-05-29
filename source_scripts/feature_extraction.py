@@ -85,7 +85,19 @@ def extract_features(feature_type:str,audio:np.ndarray,sr:int=SAMPLE_RATE):
 
 
 
+if __name__ == "__main__":
+    print("Testing feature extraction...")
+    sr = 16000
+    audio = np.random.randn(4 * sr).astype(np.float32)
 
+    mfcc   = extract_features(audio = audio, feature_type="mfcc")
+    logmel = extract_features(audio = audio, feature_type="logmel")
+
+    print(f"  MFCC shape  : {mfcc.shape}   dtype={mfcc.dtype}")
+    print(f"  LogMel shape: {logmel.shape}  dtype={logmel.dtype}")
+    print(f"  MFCC  range : [{mfcc.min():.3f}, {mfcc.max():.3f}]")
+    print(f"  LogMel range: [{logmel.min():.3f}, {logmel.max():.3f}]")
+    print("Feature extraction OK.")
     
 
 
