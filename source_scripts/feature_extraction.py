@@ -32,7 +32,7 @@ def extract_mfcc(audio:np.ndarray,
     mfcc = librosa.feature.mfcc(y=audio,sr=sr,n_mfcc=n_mfcc,n_fft=n_fft,hop_length=hop_length,n_mels=n_mels,window=window,fmin=fmin,fmax=fmax)
 
     # Normalize the MFCC feature array
-    mfcc = (mfcc - mfcc.mean(axis=1,keepdims=True))/(mfcc.std(axis=1,keepdims=True)+ 1e+8)
+    mfcc = (mfcc - mfcc.mean(axis=1,keepdims=True))/(mfcc.std(axis=1,keepdims=True)+ 1e-8)
     return mfcc.astype(np.float32)
 
 def extract_mfcc_delta(audio:np.ndarray,sr:int=SAMPLE_RATE):
@@ -62,7 +62,7 @@ def extract_log_mel(audio:np.ndarray,
     log_mel = librosa.power_to_db(S=mel_spectrogram,ref=np.max)
     #Normalizing the features
     # we are doing min-max normalization for the log-mel features
-    log_mel = (log_mel - log_mel.min())/(log_mel.max()-log_mel.min() + 1e+8)
+    log_mel = (log_mel - log_mel.min())/(log_mel.max()-log_mel.min() + 1e-8)
     return log_mel.astype(np.float32)
 
 def extract_log_mel_channel(audio:np.ndarray,sr:int=SAMPLE_RATE):
@@ -80,7 +80,13 @@ def extract_features(feature_type:str,audio:np.ndarray,sr:int=SAMPLE_RATE):
     else:
         raise ValueError(f"Unknown feature type: {feature_type}. Choose 'mfcc' or 'logmel'.")
 
-
+def get_feature_shape(feature_type: str = "mfcc",
+                      max_duration: float = 4.0,
+                      sr: int = SAMPLE_RATE) -> tuple:
+    """Returns expected (C, H, W) shape for CNN input."""
+    dummy = np.zeros(int(max_duration * sr))
+    feat  = extract_features(dummy, feature_type=feature_type, sr=sr)
+    return feat.shape
 
 
 

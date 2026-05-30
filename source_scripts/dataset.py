@@ -8,7 +8,7 @@ import os
 from torch.utils.data import Dataset, DataLoader
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from source_scripts.data_preprocessing import preprocess_audio
+from source_scripts.data_preprocessing import preprocess_audio,pad_truncate
 from source_scripts.feature_extraction import extract_features
 from utility_scripts.data_augment import augment_audio
 
@@ -85,16 +85,20 @@ class ASVspoofDataset(Dataset):
         audio_id = row['audio_id']
         filepath =  os.path.join(self.audio_dir,audio_id+'.flac')
         if self.cache is not None and filepath in self.cache:
-            feature_np = self.cache[filepath] # this will return the tensor for the particular audio file if stored in cache
+            self.cache[filepath] = feature_np   # this will return the tensor for the particular audio file if stored in cache
         else:
             audio = preprocess_audio(filepath,sr=self.sr)
-            if augment_audio:
+            if self.augment:
                 audio = augment_audio(audio)
+                # forcing fixed length even after augmentation
+                audio = pad_truncate(audio,sr=self.sr)
 
             feature_np = extract_features(feature_type=self.feature_type,audio=audio,sr=self.sr)
             # feature_tensor = torch.from_numpy(feature_np)
             if self.cache is not None:
                 self.cache[audio]=feature_np
+        # print(len(audio))        
+        # print(feature_np.shape)        
         feature_tensor = torch.from_numpy(feature_np)
         label_tensor = torch.tensor(row['label'],dtype= torch.long)
         return feature_tensor,label_tensor,filepath
@@ -131,8 +135,14 @@ def get_dataloaders(feature_type: str = "mfcc",
         
 
 if __name__ == "__main__":
-    train_ds,dev_ds,eval_ds = get_dataloaders(feature_type='mfcc')
-
+    print("Testing with real dataset...")
+    # ds = SyntheticAudioDataset(num_samples=200, feature_type="mfcc")
+    ds = ASVspoofDataset(audio_dir=FLAC_TRAIN_DIR,protocol_path=TRAIN_PROTOCOL,feature_type="mfcc",sr=SAMPLE_RATE)
+    dl = DataLoader(ds, batch_size=32, shuffle=True)
+    for feat, label, _ in dl:
+        print(f"  Batch — features: {feat.shape}, labels: {label.shape}")
+        break
+    print("Dataset OK.")
 
 
 
