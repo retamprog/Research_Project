@@ -57,7 +57,7 @@ def extract_log_mel(audio:np.ndarray,
                     n_mels:int=MEL_N_MELS,
                     fmin:float=MEL_FMIN,
                     fmax:float=MEL_FMAX,
-                    window:str=MEl_WINDOW):
+                    window:str=MEL_WINDOW):
     mel_spectrogram = librosa.feature.melspectrogram(y=audio,sr=sr,n_fft=n_fft,hop_length=hop_length,n_mels=n_mels,fmin=fmin,fmax=fmax,window=window)
     log_mel = librosa.power_to_db(S=mel_spectrogram,ref=np.max)
     #Normalizing the features
