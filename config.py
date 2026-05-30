@@ -62,7 +62,7 @@ MEL_N_FFT=512
 MEL_HOP_LENGTH=160
 MEL_FMIN = 20
 MEL_FMAX = 8000
-MEl_WINDOW = 'hamming'
+MEL_WINDOW = 'hamming'
 
 # Training  Parameters 
 BATCH_SIZE      = 64
