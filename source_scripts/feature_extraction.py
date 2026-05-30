@@ -12,7 +12,7 @@ from config import (
     SAMPLE_RATE, MFCC_N_FFT,MFCC_N_MFCC,
     MFCC_HOP_LENGTH,MFCC_N_MELS,MFCC_FMAX,
     MFCC_FMIN,MFCC_WINDOW,
-    MEL_N_MELS,MEL_FMAX,MEL_FMIN,MEL_HOP_LENGTH,MEL_N_FFT,MEl_WINDOW
+    MEL_N_MELS,MEL_FMAX,MEL_FMIN,MEL_HOP_LENGTH,MEL_N_FFT,MEL_WINDOW
 
 )
 #----------------------------------MFCC Feature Extraction-------------------------------------#

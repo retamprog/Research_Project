@@ -140,7 +140,7 @@ def train(model_name: str,
 
         elapsed = time.time() - t0
         print(f"Epoch {epoch:>3}/{num_epochs} | "
-              f"Loss: {train_info['loss']:.4f} → {val_info['loss']:.4f} | "
+              f"Loss: {train_info['Loss']:.4f} → {val_info['loss']:.4f} | "
               f"Acc: {train_info['accuracy']:.1f}% → {val_info['accuracy']:.1f}% | "
               f"EER: {val_info['eer']:.2f}% | "
               f"F1: {val_info['f1_score']:.2f}% | "
